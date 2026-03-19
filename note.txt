@@ -1,0 +1,17 @@
+fix path api ...
+    maybe can fix can not log in problem
+
+maybe fix style first page
+
+log-in with user and admin to compare different and compare with no register
+
+create massageShop file for user to see all massageShop
+
+fix cover in first page to full screen or maybe change it to full screen then decorate more around
+
+design UI flow in figma
+    draw each page in my Ipad in goodnotes
+
+something about backend idk it should in this file
+
+...and many more ...
