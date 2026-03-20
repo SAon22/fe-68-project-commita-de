@@ -15,3 +15,11 @@ design UI flow in figma
 something about backend idk it should in this file
 
 ...and many more ...
+
+
+CheckList folder from a10:
+    -app x
+    -components x
+    -libs x
+    -redux
+        - /features/reserveSlice/ts อาจจะเปลี่ยนพวก fields ที่ส่งเข้า น่าจะ date 
