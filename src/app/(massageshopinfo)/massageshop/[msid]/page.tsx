@@ -12,7 +12,7 @@ export default async function MassageShopDetailPage({params}: {params: any}) {
         <h1 className="text-2xl font-bold">{massageshopDetail.data.name}</h1>
         <div className="flex flex-row my-5 gap-6">
             <Image src={massageshopDetail.data.picture}
-                  alt="Venue Image"
+                  alt="MassageShop Image"
                   width={0} height={0} sizes="100vw"
                   className="rounded-lg w-[30%] font-bold"
             />
