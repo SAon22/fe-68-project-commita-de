@@ -20,6 +20,15 @@ something about backend idk it should in this file
 CheckList folder from a10:
     -app x
     -components x
-    -libs x
+    -libs
+        - ตอนนี้ใช้ localhost fetch อยู่ ค่อยแก้เป็น backend ที่ deploy แล้วทีหลัง
     -redux
         - /features/reserveSlice/ts อาจจะเปลี่ยนพวก fields ที่ส่งเข้า น่าจะ date 
+
+
+add image for each massageShop
+
+
+NOTE:
+    6 account user1 2 3, admin1 2 3 : password: 12345678
+    5 massageShop AAAAAA B C D E 
