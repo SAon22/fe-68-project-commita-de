@@ -11,6 +11,7 @@ export async function POST(req: Request) {
         const reservation = await Reservation.create(body)
         return NextResponse.json(reservation)
     } catch (err) {
+        console.log(err);
         return NextResponse.json({ error: "Cannot create reservation" }, { status: 500 })
     }
 }
