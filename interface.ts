@@ -18,9 +18,16 @@ interface MassageShopItem {
   }
 
 export interface ReservationItem {
-    name: string;
     shopName: string;
-    tel: string;
     date: string;
+    startTime: string;
     duration: number;
 }
+
+// export interface ReservationItem {
+//     name: string;
+//     shopName: string;
+//     tel: string;
+//     date: string;
+//     duration: number;
+// }

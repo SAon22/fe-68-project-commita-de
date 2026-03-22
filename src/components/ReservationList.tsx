@@ -1,51 +1,53 @@
 "use client"
-import { useAppSelector } from "@/redux/store";
-import { useDispatch } from "react-redux";
-import { removeReservation } from "@/redux/features/reserveSlice";
-import { ReservationItem } from "../../interface";
+import { useEffect, useState } from "react"
 
 export default function ReservationList() {
 
-    const reserveItems = useAppSelector((state) => state.reserveSlice.reserveItems);
-    const dispatch = useDispatch();
+    const [reservations, setReservations] = useState<any[]>([])
 
-    const calculateEndTime = (startTime: string, duration: number) => {
-        const [hour, minute] = startTime.split(":").map(Number)
-        const totalMinutes = hour * 60 + minute + duration
+    useEffect(() => {
+        fetch("/api/reservations")
+            .then(res => res.json())
+            .then(data => setReservations(data))
+    }, [])
 
-        const endHour = Math.floor(totalMinutes / 60) % 24
-        const endMinute = totalMinutes % 60
-
-        return `${endHour.toString().padStart(2, "0")}:${endMinute.toString().padStart(2, "0")}`
-    }
-
-    if (reserveItems.length === 0) {
+    if (reservations.length === 0) {
         return (
-            <div className="text-center text-xl font-semibold mt-10">
+            <div className="text-center mt-10 text-xl">
                 No Reservation
             </div>
-        );
+        )
     }
 
     return (
         <div className="space-y-4 p-5">
-            {reserveItems.map((item: ReservationItem) => (
-                <div key={`${item.shopName}-${item.date}-${item.startTime}`}
-                    className="bg-slate-100 rounded-lg p-4 shadow-md flex justify-between items-center">
-                    <div className="flex flex-col space-y-1">
-                        <div className="text-lg font-bold">{item.shopName}</div>
-                        <div className="text-sm text-gray-600">Date: {item.date}</div>
-                        <div className="text-sm text-blue-700">Start: {item.startTime}</div>
-                        <div className="text-sm text-gray-600">Duration: {item.duration} mins</div>
-                        <div className="text-sm text-green-600">End: {calculateEndTime(item.startTime, item.duration)}</div>
+            {reservations.map((r) => (
+                <div key={r._id} className="bg-gray-100 p-4 rounded shadow flex justify-between items-center">
+                    <div>
+                        <div className="font-bold text-lg">{r.massageShop.name}</div>
+                        <div>{new Date(r.date).toLocaleString()}</div>
+                        <div>Duration: {r.duration} mins</div>
                     </div>
+                    {/* delete button */}
+                    <button
+                        onClick={async () => {
 
-                    <button onClick={() => dispatch(removeReservation(item))}
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300">
-                        Cancel
+                            const confirmDelete = confirm("Delete this reservation?")
+                            if (!confirmDelete) return
+
+                            await fetch(`/api/reservations?id=${r._id}`, {
+                                method: "DELETE"
+                            })
+                            // update 
+                            setReservations(prev => prev.filter(item => item._id !== r._id))
+                        }}
+                        className="bg-red-500 hover:bg-red-700 text-white px-3 py-1 rounded"
+                    >
+                        Delete
                     </button>
+
                 </div>
             ))}
         </div>
-    );
+    )
 }
