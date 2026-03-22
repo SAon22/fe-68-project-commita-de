@@ -20,16 +20,16 @@ export default async function TopMenu() {
 
                 <TopMenuItem title="MassageShop" pageRef="/massageshop"/>
                 {
-                    session ? <TopMenuItem title="Reservation" pageRef="/reservation"/> 
+                    session ? <TopMenuItem title="Reservation" pageRef="/showreservation"/> 
                     : <TopMenuItem title="Reservation" pageRef="/api/auth/signin"/>
                 }
 
                 {
-                    session && role === 'user' && <TopMenuItem title="My Reservation" pageRef="/myreservation"/>
+                    session && role === 'user' && <TopMenuItem title="My Reservation" pageRef="/showreservation"/>
                 }
 
                 {
-                    session && role === 'admin' && <TopMenuItem title="All Reservation" pageRef="/allreservation"/>
+                    session && role === 'admin' && <TopMenuItem title="All Reservation" pageRef="/showreservation"/>
                 }
 
                 {
