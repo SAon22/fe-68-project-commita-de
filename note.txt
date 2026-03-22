@@ -25,11 +25,14 @@ CheckList folder from a10:
     -redux
         - /features/reserveSlice/ts อาจจะเปลี่ยนพวก fields ที่ส่งเข้า น่าจะ date 
 
+api authOptions มั่วอยู่ก้อปผิด repo 55555555555
 
 add image for each massageShop ทำใน backend ? หรือ item สักที่
 
 เน้นทำเหมือนๆกับ assignment หรือ workshop ไปก่อน ค่อยไปปรับเปลี่ยนให้สวยทีหลัง
 
+app/layout.tsx
+import NextAuthProvider from "@/providers/NextAuthProvider"; ยังแดงอยู่
 
 NOTE:
     6 account user1 2 3, admin1 2 3 : password: 12345678
