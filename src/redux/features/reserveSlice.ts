@@ -16,7 +16,8 @@ export const reserveSlice = createSlice({
 
             const index = state.reserveItems.findIndex(item =>
                 item.shopName === action.payload.shopName &&
-                item.date === action.payload.date
+                item.date === action.payload.date &&
+                item.startTime === action.payload.startTime
             );
 
             if (index !== -1) {
@@ -26,11 +27,13 @@ export const reserveSlice = createSlice({
             }
         },
 
+
         removeReservation: (state, action: PayloadAction<ReservationItem>) => {
-            state.reserveItems = state.reserveItems.filter(item =>
+            state.reserveItems = state.reserveItems.filter(item => 
                 !(
                     item.shopName === action.payload.shopName &&
-                    item.date === action.payload.date
+                    item.date === action.payload.date &&
+                    item.startTime === action.payload.startTime
                 )
             );
         }
