@@ -11,7 +11,7 @@ export default async function TopMenu() {
     const role = session?.user?.role
 
     return (
-        <div className="fixed top-0 left-0 w-full flex justify-center items-center h-[60px] z-50 bg-transparent text-white">
+        <div className="fixed top-0 left-0 w-full flex justify-center items-center h-[60px] z-50 bg-white/10 backdrop-blur-md text-white">
             <div className="flex items-center gap-6">
                 <div className="flex items-center gap-2">
                     <Image src="/img/logo2.png" alt="logo" width={90} height={90}/>
