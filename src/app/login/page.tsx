@@ -27,40 +27,29 @@ export default function LoginPage(){
     }
   }
 
-  return(
-    <div>
+  return (
+  <div className="page-container">
 
-      <h1>Login</h1>
+    <h1 className="page-title">Login</h1>
 
-      <form onSubmit={handleLogin}>
+    <div className="page-section">
 
-        <input
-          type="email"
-          placeholder="email"
-          value={email}
-          onChange={(e)=>setEmail(e.target.value)}
-        />
+      <div className="form-group">
+        <label className="form-label">Email</label>
+        <input className="form-input" type="email"/>
+      </div>
 
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e)=>setPassword(e.target.value)}
-        />
+      <div className="form-group">
+        <label className="form-label">Password</label>
+        <input className="form-input" type="password"/>
+      </div>
 
-        <button type="submit">
-          Login
-        </button>
-
-      </form>
-
-        <p className="mt-4">
-        Don't have an account? 
-        <Link href="/register" className="text-blue-500 ml-1">
-             Register
-        </Link>
-        </p>
+      <button className="form-button">
+        Login
+      </button>
 
     </div>
-  )
+
+  </div>
+)
 }
