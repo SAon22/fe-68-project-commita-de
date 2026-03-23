@@ -18,6 +18,7 @@ export default async function TopMenu() {
                     {/* <Image src="/img/shopname.png" alt="shop name" width={120} height={40}/> */}
                 </div>
 
+                <TopMenuItem title="Home" pageRef="/"/>
                 <TopMenuItem title="MassageShop" pageRef="/massageshop"/>
                 {
                     session ? <TopMenuItem title="Reservation" pageRef="/reservation"/> 
