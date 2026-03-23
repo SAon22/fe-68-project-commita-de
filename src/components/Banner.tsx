@@ -7,10 +7,10 @@ export default function Banner(){
 
       {/* BACKGROUND IMAGE */}
       <Image
-        src="/img/homepic.jpg"
+        src="/img/homepic.png"
         alt="massage"
         fill
-        className="object-cover brightness-75"
+        className="object-cover brightness-50"
         priority
       />
 
