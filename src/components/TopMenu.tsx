@@ -20,7 +20,7 @@ export default async function TopMenu() {
 
                 <TopMenuItem title="MassageShop" pageRef="/massageshop"/>
                 {
-                    session ? <TopMenuItem title="Reservation" pageRef="/showreservation"/> 
+                    session ? <TopMenuItem title="Reservation" pageRef="/reservation"/> 
                     : <TopMenuItem title="Reservation" pageRef="/api/auth/signin"/>
                 }
 
@@ -41,6 +41,12 @@ export default async function TopMenu() {
                         </div>
                       </Link>
                 }
+                <Link href="/register">
+                    <div className="px-4 py-1.5 text-sm font-medium text-white border border-white
+                    rounded-full hover:bg-white hover:text-black transition cursor-pointer">
+                        Register
+                    </div>
+                </Link>
             </div>
         </div>
     )

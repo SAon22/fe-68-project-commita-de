@@ -1,5 +1,6 @@
 "use client"
 import { useEffect, useState } from "react"
+import Link from "next/link"
 
 export default function ReservationList() {
 
@@ -28,24 +29,32 @@ export default function ReservationList() {
                         <div>{new Date(r.date).toLocaleString()}</div>
                         <div>Duration: {r.duration} mins</div>
                     </div>
-                    {/* delete button */}
-                    <button
-                        onClick={async () => {
+                    <div className="flex gap-2">
+                        {/* edit button */}
+                        <Link href={`/edit/${r._id}`}>
+                            <button className="bg-blue-500 text-white px-3 py-1 rounded">
+                                Edit
+                            </button>
+                        </Link>
 
-                            const confirmDelete = confirm("Delete this reservation?")
-                            if (!confirmDelete) return
+                        {/* delete button */}
+                        <button
+                            onClick={async () => {
 
-                            await fetch(`/api/reservations?id=${r._id}`, {
-                                method: "DELETE"
-                            })
-                            // update 
-                            setReservations(prev => prev.filter(item => item._id !== r._id))
-                        }}
-                        className="bg-red-500 hover:bg-red-700 text-white px-3 py-1 rounded"
-                    >
-                        Delete
-                    </button>
+                                const confirmDelete = confirm("Delete this reservation?")
+                                if (!confirmDelete) return
 
+                                await fetch(`/api/reservations?id=${r._id}`, {
+                                    method: "DELETE"
+                                })
+                                // update 
+                                setReservations(prev => prev.filter(item => item._id !== r._id))
+                            }}
+                            className="bg-red-500 hover:bg-red-700 text-white px-3 py-1 rounded"
+                        >
+                            Delete
+                        </button>
+                    </div>
                 </div>
             ))}
         </div>
