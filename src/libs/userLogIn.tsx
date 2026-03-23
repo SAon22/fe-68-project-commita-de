@@ -10,8 +10,10 @@ export default async function userLogin(userEmail:string, userPassword:string) {
             password: userPassword
         }),
     })
+
     if(!response.ok) {
-        throw new Error("Failed to log-in");
+        return null;
+        //throw new Error("Failed to log-in");
     }
 
     const loginData = await response.json();
@@ -25,12 +27,20 @@ export default async function userLogin(userEmail:string, userPassword:string) {
     })
 
     if(!userResponse.ok) {
-        throw new Error("Failed to get user info");
+        return null;
+        //throw new Error("Failed to get user info");
     }
 
     const userData = await userResponse.json();
-    // console.log(userData);
-    return userData.data;
+    console.log(userData);
+    return {
+        id: userData.data._id || userData.data.id,
+        name: userData.data.name,
+        email: userData.data.email,
+        role: userData.data.role,
+        token: token,
+        ...userData.data
+    }
 }
 
 // Log-In demo
