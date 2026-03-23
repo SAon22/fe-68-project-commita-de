@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link"
 
 export default function RegisterPage() {
 
@@ -54,6 +55,12 @@ export default function RegisterPage() {
             <button onClick={handleRegister} className="bg-blue-500 text-white p-2 rounded">
                 Register
             </button>
+            <p className="text-sm text-center">
+                Already have an account?
+                <Link href="/login" className="text-blue-500 ml-1">
+                    Login
+                </Link>
+            </p>
 
         </div>
     )

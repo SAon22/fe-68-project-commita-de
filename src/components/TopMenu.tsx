@@ -35,19 +35,14 @@ export default async function TopMenu() {
 
                 {
                     session ? <UserMenu user={session.user}/>
-                    : <Link href="/api/auth/signin">
+                    : <Link href="/login">
                         <div className="px-4 py-1.5 text-sm font-medium text-white border border-white
                         rounded-full hover:bg-white hover:text-black transition cursor-pointer">
-                            Sign-In
+                            Log in
                         </div>
                       </Link>
                 }
-                <Link href="/register">
-                    <div className="px-4 py-1.5 text-sm font-medium text-white border border-white
-                    rounded-full hover:bg-white hover:text-black transition cursor-pointer">
-                        Register
-                    </div>
-                </Link>
+                
             </div>
         </div>
     )
