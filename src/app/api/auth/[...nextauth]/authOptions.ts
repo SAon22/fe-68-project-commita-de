@@ -1,3 +1,56 @@
+import { AuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import userLogin from "@/libs/userLogIn";
+
+export const authOptions: AuthOptions = {
+  // secret: process.env.NEXTAUTH_SECRET,
+  providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" }
+      },
+      async authorize(credentials) {
+        if (!credentials) {
+          return null;
+        }
+
+        const res = await userLogin(credentials.email, credentials.password);
+
+        if (!res || !res.token) return null
+
+        return {
+          id: res.data._id,
+          name: res.data.name,
+          email: res.data.email,
+          role: res.data.role,
+          token: res.token
+        }
+      }
+    })
+  ],
+
+  session: { strategy: "jwt" },
+
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token._id = (user as any).id
+        token.name = user.name
+        token.email = user.email
+        token.role = (user as any).role
+        token.token = (user as any).token
+      }
+      return token
+    },
+
+    async session({ session, token }) {
+      session.user = token as any
+      return session
+    }
+  }
+}
 // import { AuthOptions } from "next-auth";
 // import CredentialsProvider from "next-auth/providers/credentials";
 // import userLogIn from "@/libs/userLogIn";
@@ -62,41 +115,4 @@
 //     signIn: "/login",
 //   },
 // };
-import { AuthOptions } from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
-import userLogin from "@/libs/userLogIn"
 
-export const authOptions: AuthOptions = {
-  providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
-      },
-      async authorize(credentials) {
-        if (!credentials) return null
-
-        const user = await userLogin(
-          credentials.email, 
-          credentials.password
-        )
-
-        if (user) return user
-        return null
-      }
-    })
-  ],
-
-  session: { strategy: "jwt" },
-
-  callbacks: {
-    async jwt({ token, user }) {
-      return { ...token, ...user }
-    },
-    async session({ session, token }) {
-      session.user = token as any
-      return session
-    }
-  }
-}
