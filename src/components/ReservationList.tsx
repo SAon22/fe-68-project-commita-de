@@ -9,16 +9,31 @@ export default function ReservationList() {
     const [reservations, setReservations] = useState<any[]>([])
 
     useEffect(() => {
-        if (!session) return;
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/reservations`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${(session.user as any).token}`
+        // 1. เช็คก่อนว่ามี session และ token หรือยัง
+        if (!session || !(session.user as any).token) return;
+
+        const fetchReservations = async () => {
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/reservations`, {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${(session.user as any).token}`
+                    }
+                })
+                const data = await res.json()
+                
+                if (res.ok) {
+                    setReservations(data.data || [])
+                } else {
+                    console.error("Fetch failed:", data.message)
+                }
+            } catch (err) {
+                console.error("Network error:", err)
             }
-        })
-            .then(res => res.json())
-            .then(data => setReservations(data.data || []))
-    }, [])
+        }
+
+        fetchReservations()
+    }, [session])
 
     if (reservations.length === 0) {
         return (
