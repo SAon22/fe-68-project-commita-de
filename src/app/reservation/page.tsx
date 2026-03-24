@@ -72,7 +72,7 @@ export default function ReservationPage() {
             // user: session.user._id,
             massageShop: shop,
             // date: dateTime,
-            date: finalDateTime.toISOString(),
+            date: new Date(finalDateTime.toDate()).toISOString(),
             duration: Number(duration)
         }
 
