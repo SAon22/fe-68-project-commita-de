@@ -25,6 +25,7 @@ export default function ReservationList() {
             {reservations.map((r) => (
                 <div key={r._id} className="bg-gray-100 p-4 rounded shadow flex justify-between items-center">
                     <div>
+                        <div className="text-sm text-gray-600">Reserved by: {r.user?.name || "Unknown User"}</div>
                         <div className="font-bold text-lg">{r.massageShop.name}</div>
                         <div>{new Date(r.date).toLocaleString()}</div>
                         <div>Duration: {r.duration} mins</div>

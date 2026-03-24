@@ -36,7 +36,8 @@ export default function RegisterPage() {
 
         if (res.ok) {
             alert("Your Register is Completed");
-            router.push("/api/auth/signin");
+            //router.push("/api/auth/signin");
+            router.push("/login");
         } else {
             alert(data.error || "Register failed");
         }

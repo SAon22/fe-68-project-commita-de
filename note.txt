@@ -40,3 +40,7 @@ import NextAuthProvider from "@/providers/NextAuthProvider"; ยังแดง�
 NOTE:
     6 account user1 2 3, admin1 2 3 : password: 12345678
     5 massageShop AAAAAA B C D E 
+
+profile
+change alert
+show user name OK

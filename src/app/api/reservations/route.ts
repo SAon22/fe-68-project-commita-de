@@ -45,9 +45,9 @@ export async function GET() {
     let reservations;
 
     if(session.user.role === "admin") {
-        reservations = await Reservation.find().populate("massageShop");
+        reservations = await Reservation.find().populate("massageShop").populate("user", "name");
     } else {
-        reservations = await Reservation.find({user:session.user._id}).populate("massageShop");
+        reservations = await Reservation.find({user:session.user._id}).populate("massageShop").populate("user", "name");
     }
 
     return NextResponse.json(reservations);
