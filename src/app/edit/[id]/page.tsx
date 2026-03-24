@@ -19,16 +19,25 @@ export default function EditReservationPage() {
 
         // โหลด reservation
         fetch("/api/reservations")
-            .then(res => res.json())
-            .then(data => {
-                const found = data.find((r: any) => r._id === id)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("Failed to fetch reservations")
+            }
+            return res.json()
+        })
+.then(data => {
+    const found = data.find((r: any) => r._id === id)
 
-                setReservation(found)
+    if (!found) {
+        console.log("Reservation not found")
+        return
+    }
 
-                setDate(found.date)
-                setDuration(found.duration)
-                setShop(found.massageShop._id)
-            })
+    setReservation(found)
+    setDate(found.date)
+    setDuration(found.duration)
+    setShop(found.massageShop._id)
+})
 
         // โหลดร้านทั้งหมด
         fetch("/api/massageshops")
@@ -37,7 +46,13 @@ export default function EditReservationPage() {
 
     }, [id])
 
-    if (!reservation) return <div className="p-5">Loading...</div>
+    if (!reservation) {
+  return (
+    <div className="min-h-screen flex items-center justify-center text-white">
+      Loading reservation...
+    </div>
+  )
+}
 
     // 🔹 update
     const handleUpdate = async () => {
@@ -63,20 +78,26 @@ export default function EditReservationPage() {
         }
     }
 
-    return (
-        <div className="p-5 max-w-md mx-auto space-y-4">
+return (
 
-            <h1 className="text-2xl font-bold text-center">
+    <div className="min-h-screen bg-gradient-to-br from-slate-300 via-slate-400 to-slate-500 flex justify-center items-center p-10">
+
+        <div className="bg-white/90 backdrop-blur shadow-xl rounded-2xl p-8 w-full max-w-md border border-slate-200 space-y-5">
+
+            <h1 className="text-3xl font-bold text-slate-800 text-center">
                 Edit Reservation
             </h1>
 
             {/* 🏪 เลือกร้าน */}
-            <div>
-                <label>Massage Shop</label>
+            <div className="flex flex-col gap-1">
+                <label className="text-slate-700 font-medium">
+                    Massage Shop
+                </label>
+
                 <select
                     value={shop}
                     onChange={(e) => setShop(e.target.value)}
-                    className="border p-2 w-full"
+                    className="border border-slate-300 rounded-lg p-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400"
                 >
                     {shops.map((s) => (
                         <option key={s._id} value={s._id}>
@@ -87,35 +108,44 @@ export default function EditReservationPage() {
             </div>
 
             {/* 📅 วันที่ + เวลา */}
-            <div>
-                <label>Date & Time</label>
+            <div className="flex flex-col gap-1">
+                <label className="text-slate-700 font-medium">
+                    Date & Time
+                </label>
+
                 <input
                     type="datetime-local"
                     value={date ? new Date(date).toISOString().slice(0,16) : ""}
                     onChange={(e) => setDate(e.target.value)}
-                    className="border p-2 w-full"
+                    className="border border-slate-300 rounded-lg p-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400"
                 />
             </div>
 
             {/* ⏱ duration */}
-            <div>
-                <label>Duration (minutes)</label>
+            <div className="flex flex-col gap-1">
+                <label className="text-slate-700 font-medium">
+                    Duration (minutes)
+                </label>
+
                 <input
                     type="number"
                     value={duration}
                     onChange={(e) => setDuration(e.target.value)}
-                    className="border p-2 w-full"
+                    className="border border-slate-300 rounded-lg p-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400"
                 />
             </div>
 
             {/* 🔘 ปุ่ม */}
             <button
                 onClick={handleUpdate}
-                className="bg-green-500 text-white w-full p-2 rounded"
+                className="bg-slate-700 hover:bg-slate-800 text-white font-semibold p-3 rounded-lg transition w-full"
             >
                 Save Changes
             </button>
 
         </div>
-    )
+
+    </div>
+
+)
 }
