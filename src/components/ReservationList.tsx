@@ -17,7 +17,7 @@ export default function ReservationList() {
             }
         })
             .then(res => res.json())
-            .then(data => setReservations(data))
+            .then(data => setReservations(data.data || []))
     }, [])
 
     if (reservations.length === 0) {

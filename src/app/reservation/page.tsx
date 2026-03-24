@@ -75,7 +75,7 @@ export default function ReservationPage() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${(session.user as any).token}`
+                "Authorization": `Bearer ${(session?.user as any).token}` 
             },
             body: JSON.stringify(item)
         })
