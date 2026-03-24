@@ -42,6 +42,8 @@ export default function ReservationPage() {
             return
         }
 
+        console.log("Current Selected Shop ID:", shop);
+        
         const selectedShop = shops.find(s => s._id === shop)
 
         if (!selectedShop) {
