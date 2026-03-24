@@ -96,49 +96,64 @@ export default function Banner(){
         </div>
 
         {/* RIGHT SIDE (STEPS) */}
-        <div className="flex flex-col justify-center gap-12">
+<div className="flex flex-col justify-center gap-10 pr-10">
 
-          <div className="flex items-start gap-5">
-            <div className="text-4xl font-bold">1</div>
-            <div>
-              <div className="font-semibold text-lg">Browse</div>
-              <div className="text-gray-200 text-sm">
-                Browse massage shops available near you
-              </div>
-            </div>
-          </div>
+  {/* STEP 0 */}
+  <div className="flex items-start gap-5">
+    <div className="text-4xl font-bold text-white/80">0</div>
+    <div>
+      <div className="font-semibold text-lg">Register</div>
+      <div className="text-gray-200 text-sm">
+        Create your account to start booking
+      </div>
+    </div>
+  </div>
 
-          <div className="flex items-start gap-5">
-            <div className="text-4xl font-bold">2</div>
-            <div>
-              <div className="font-semibold text-lg">Pick Date</div>
-              <div className="text-gray-200 text-sm">
-                Select your preferred date and time
-              </div>
-            </div>
-          </div>
+  {/* STEP 1 */}
+  <div className="flex items-start gap-5">
+    <div className="text-4xl font-bold text-white/80">1</div>
+    <div>
+      <div className="font-semibold text-lg">Browse</div>
+      <div className="text-gray-200 text-sm">
+        Browse massage shops available near you
+      </div>
+    </div>
+  </div>
 
-          <div className="flex items-start gap-5">
-            <div className="text-4xl font-bold">3</div>
-            <div>
-              <div className="font-semibold text-lg">Confirm</div>
-              <div className="text-gray-200 text-sm">
-                Confirm reservation quickly online
-              </div>
-            </div>
-          </div>
+  {/* STEP 2 */}
+  <div className="flex items-start gap-5">
+    <div className="text-4xl font-bold text-white/80">2</div>
+    <div>
+      <div className="font-semibold text-lg">Pick Date</div>
+      <div className="text-gray-200 text-sm">
+        Select your preferred date and time
+      </div>
+    </div>
+  </div>
 
-          <div className="flex items-start gap-5">
-            <div className="text-4xl font-bold">4</div>
-            <div>
-              <div className="font-semibold text-lg">Relax</div>
-              <div className="text-gray-200 text-sm">
-                Enjoy a comfortable and relaxing massage
-              </div>
-            </div>
-          </div>
+  {/* STEP 3 */}
+  <div className="flex items-start gap-5">
+    <div className="text-4xl font-bold text-white/80">3</div>
+    <div>
+      <div className="font-semibold text-lg">Confirm</div>
+      <div className="text-gray-200 text-sm">
+        Confirm reservation quickly online
+      </div>
+    </div>
+  </div>
 
-        </div>
+  {/* STEP 4 */}
+  <div className="flex items-start gap-5">
+    <div className="text-4xl font-bold text-white/80">4</div>
+    <div>
+      <div className="font-semibold text-lg">Relax</div>
+      <div className="text-gray-200 text-sm">
+        Enjoy a comfortable and relaxing massage
+      </div>
+    </div>
+  </div>
+
+</div>
 
       </div>
 

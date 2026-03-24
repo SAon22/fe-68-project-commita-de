@@ -26,7 +26,6 @@ export default function TopMenu() {
                     <Image src="/img/logo2.png" alt="logo" width={90} height={90}/>
                 </div>
 
-                <TopMenuItem title="Home" pageRef="/"/>
                 <TopMenuItem title="MassageShop" pageRef="/massageshop"/>
 
                 {
