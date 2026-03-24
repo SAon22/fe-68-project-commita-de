@@ -62,13 +62,20 @@ export default function ReservationPage() {
             alert(`Shop open from ${openTime} to ${closeTime}`)
             return
         }
+        // const dateTime = new Date(`${date.format("YYYY-MM-DD")}T${time}:00`)
+        const dateString = `${date.format("YYYY-MM-DD")}T${time}:00`;
+        const dateTime = new Date(dateString);
 
-        const dateTime = new Date(`${date.format("YYYY-MM-DD")}T${time}:00`)
+        if (isNaN(dateTime.getTime())) {
+            alert("Please enter a valid time (HH:mm)");
+            return;
+        }
 
         const item = {
             // user: session.user._id,
             massageShop: shop,
-            date: dateTime,
+            // date: dateTime,
+            date: dateTime.toISOString(),
             duration: Number(duration)
         }
 
