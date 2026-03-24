@@ -67,14 +67,17 @@ export default function ReservationPage() {
         // const dateTime = new Date(dateString);
         const [hours, minutes] = time.split(":").map(Number);
         // 1. ใช้ dayjs ตั้งค่าเวลาให้เรียบร้อย (เป็น Dayjs object)
-        const finalDayjs = date.hour(hours).minute(minutes).second(0).millisecond(0);
-        const isoDate = finalDayjs.toDate().toISOString();
+        const formattedForBackend = date
+    .hour(hours)
+    .minute(minutes)
+    .second(0)
+    .format("YYYY-MM-DDTHH:mm:ss[Z]");
 
         const item = {
             // user: session.user._id,
             massageShop: shop,
             // date: dateTime,
-            date: isoDate,
+            date: formattedForBackend,
             duration: Number(duration)
         }
 
