@@ -69,7 +69,8 @@ export default function EditReservationPage() {
             },
             body: JSON.stringify({
                 date: isoDate,
-                duration: Number(duration)
+                duration: Number(duration),
+                massageShop: shop
             })
         })
 
