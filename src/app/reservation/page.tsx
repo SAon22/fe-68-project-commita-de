@@ -63,19 +63,16 @@ export default function ReservationPage() {
             return
         }
         // const dateTime = new Date(`${date.format("YYYY-MM-DD")}T${time}:00`)
-        const dateString = `${date.format("YYYY-MM-DD")}T${time}:00`;
-        const dateTime = new Date(dateString);
-
-        if (isNaN(dateTime.getTime())) {
-            alert("Please enter a valid time (HH:mm)");
-            return;
-        }
+        // const dateString = `${date.format("YYYY-MM-DD")}T${time}:00`;
+        // const dateTime = new Date(dateString);
+        const [hours, minutes] = time.split(":").map(Number);
+        const finalDateTime = date.hour(hours).minute(minutes).second(0).millisecond(0);
 
         const item = {
             // user: session.user._id,
             massageShop: shop,
             // date: dateTime,
-            date: dateTime.toISOString(),
+            date: finalDateTime.toISOString(),
             duration: Number(duration)
         }
 
