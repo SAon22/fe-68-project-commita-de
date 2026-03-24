@@ -43,7 +43,7 @@ export default function ReservationPage() {
         }
 
         console.log("Current Selected Shop ID:", shop);
-        
+
         const selectedShop = shops.find(s => s._id === shop)
 
         if (!selectedShop) {
@@ -73,7 +73,8 @@ export default function ReservationPage() {
         }
 
         // const res = await fetch("/api/reservations", {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/reservations`, {
+        // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/reservations`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/massage-shops/${shop}/reservations`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
