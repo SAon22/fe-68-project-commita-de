@@ -3,27 +3,55 @@ import Link from "next/link"
 
 export default async function MassageShopPage() {
 
-  const shops = await getMassageShops();
+  const shops = await getMassageShops()
 
   return (
-    <div className="p-5 grid grid-cols-3 gap-4">
-      {shops.data.map((shop: any) => (
-        <div key={shop._id} className="border p-4 rounded shadow">
 
-          <div className="text-lg font-bold">{shop.name}</div>
-          <div>{shop.address}</div>
-          <div>{shop.tel}</div>
-          <div className="text-sm text-gray-500">{shop.openCloseTime}</div>
+<div className="min-h-screen bg-gradient-to-br from-slate-300 via-slate-400 to-slate-500 p-10">
 
-          <Link
-            href={`/reservation?shop=${shop._id}`}
-            className="text-blue-500 underline"
-          >
-            Reserve
-          </Link>
+  <h1 className="text-3xl font-bold text-slate-800 mb-8">
+    Massage Shops
+  </h1>
 
-        </div>
-      ))}
-    </div>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    {shops.data.map((shop:any)=>(
+
+      <div
+        key={shop._id}
+        className="bg-white/90 backdrop-blur rounded-xl shadow-lg p-6 hover:shadow-xl transition border border-slate-200"
+      >
+
+        <h2 className="text-xl font-semibold text-slate-800 mb-2">
+          {shop.name}
+        </h2>
+
+        <p className="text-slate-700">
+          📍 {shop.address}
+        </p>
+
+        <p className="text-slate-700">
+          ☎ {shop.tel}
+        </p>
+
+        <p className="text-sm text-slate-600 mb-4">
+          🕒 {shop.openCloseTime}
+        </p>
+
+        <Link
+          href={`/reservation?shop=${shop._id}`}
+          className="inline-block bg-slate-700 text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition"
+        >
+          Reserve
+        </Link>
+
+      </div>
+
+    ))}
+
+  </div>
+
+</div>
+
   )
 }

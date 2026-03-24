@@ -85,8 +85,14 @@ export default function ReservationPage() {
     }
 
     return (
-        <main className="p-5 flex flex-col items-center space-y-4">
-            <h1 className="text-2xl font-bold">Reserve Massage</h1>
+
+    <main className="bg-white/90 backdrop-blur shadow-xl rounded-2xl p-8 border border-slate-200">
+
+        <h1 className="text-3xl font-bold text-slate-800 mb-6 text-center">
+            Reserve Massage
+        </h1>
+
+        <div className="flex flex-col gap-5">
 
             {/* select massageshop */}
             <FormControl fullWidth>
@@ -107,10 +113,10 @@ export default function ReservationPage() {
             {/* date */}
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
-                    label="Date"
+                    label="Reservation Date"
                     value={date}
                     onChange={(newValue) => setDate(newValue)}
-                    sx={{ width: '100%' }}
+                    sx={{ width: "100%" }}
                 />
             </LocalizationProvider>
 
@@ -128,12 +134,29 @@ export default function ReservationPage() {
                 label="Duration (minutes)"
                 value={duration}
                 onChange={(e) => setDuration(e.target.value)}
+                placeholder="60"
                 fullWidth
             />
 
-            <Button variant="contained" onClick={handleReservation} fullWidth>
+            <Button
+                variant="contained"
+                onClick={handleReservation}
+                fullWidth
+                sx={{
+                    backgroundColor: "#334155",
+                    padding: "12px",
+                    borderRadius: "10px",
+                    "&:hover": {
+                        backgroundColor: "#1e293b"
+                    }
+                }}
+            >
                 Reserve
             </Button>
-        </main>
-    )
+
+        </div>
+
+    </main>
+
+)
 }
