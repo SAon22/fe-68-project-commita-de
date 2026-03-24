@@ -19,9 +19,10 @@ export default function ReservationPage() {
 
     // from backend
     useEffect(() => {
-        fetch("/api/massageshops")
+        // fetch("/api/massageshops")
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/massage-shops`)
             .then(res => res.json())
-            .then(data => setShops(data))
+            .then(data => { setShops(data.data || data) })
     }, [])
 
     const toMinutes = (t: string) => {
@@ -69,10 +70,12 @@ export default function ReservationPage() {
             duration: Number(duration)
         }
 
-        const res = await fetch("/api/reservations", {
+        // const res = await fetch("/api/reservations", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/reservations`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${(session.user as any).token}`
             },
             body: JSON.stringify(item)
         })
