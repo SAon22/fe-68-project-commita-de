@@ -9,7 +9,6 @@ export default function ReservationList() {
     const [reservations, setReservations] = useState<any[]>([])
 
     useEffect(() => {
-        // 1. เช็คก่อนว่ามี session และ token หรือยัง
         if (!session || !(session.user as any).token) return;
 
         const fetchReservations = async () => {

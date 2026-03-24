@@ -64,7 +64,7 @@ export default function ReservationPage() {
         const dateTime = new Date(`${date.format("YYYY-MM-DD")}T${time}:00`)
 
         const item = {
-            user: session.user._id,
+            // user: session.user._id,
             massageShop: shop,
             date: dateTime,
             duration: Number(duration)
@@ -83,8 +83,9 @@ export default function ReservationPage() {
         if (res.ok) {
             alert("Reservation Successful")
         } else {
-            alert("Error creating reservation")
-        }
+            const errorData = await res.json();
+            alert(`Error: ${errorData.message || "creating reservation"}`);
+}
     }
 
     return (
