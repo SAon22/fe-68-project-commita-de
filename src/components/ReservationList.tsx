@@ -1,13 +1,21 @@
 "use client"
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import { useSession } from "next-auth/react"
 
 export default function ReservationList() {
 
+    const { data: session } = useSession();
     const [reservations, setReservations] = useState<any[]>([])
 
     useEffect(() => {
-        fetch("/api/reservations")
+        if (!session) return;
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/reservations`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${(session.user as any).token}`
+            }
+        })
             .then(res => res.json())
             .then(data => setReservations(data))
     }, [])
@@ -41,15 +49,22 @@ export default function ReservationList() {
                         {/* delete button */}
                         <button
                             onClick={async () => {
+                                    const confirmDelete = confirm("Delete this reservation?")
+                                    if (!confirmDelete || !session) return;
 
-                                const confirmDelete = confirm("Delete this reservation?")
-                                if (!confirmDelete) return
-
-                                await fetch(`/api/reservations?id=${r._id}`, {
-                                    method: "DELETE"
+                                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/reservations/${r._id}`, {
+                                    method: "DELETE",
+                                    headers: {
+                                        "Authorization": `Bearer ${(session.user as any).token}`
+                                    }
                                 })
                                 // update 
-                                setReservations(prev => prev.filter(item => item._id !== r._id))
+                                // setReservations(prev => prev.filter(item => item._id !== r._id))
+                                if (res.ok) {
+                                    setReservations(prev => prev.filter(item => item._id !== r._id))
+                                } else {
+                                    alert("Failed to delete reservation")
+                                }
                             }}
                             className="bg-red-500 hover:bg-red-700 text-white px-3 py-1 rounded"
                         >
