@@ -1,6 +1,6 @@
 export default async function userLogin(userEmail:string, userPassword:string) {
 
-    const response = await fetch("http://localhost:5000/api/v1/auth/login", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export default async function userLogin(userEmail:string, userPassword:string) {
     const loginData = await response.json();
     const token = loginData.token; // get Token
 
-    const userResponse = await fetch("http://localhost:5000/api/v1/auth/me", {
+    const userResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/me`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`
