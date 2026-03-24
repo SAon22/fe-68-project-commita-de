@@ -1,11 +1,12 @@
 "use client"
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
+import { useSession } from "next-auth/react" // ต้องใช้ session เพื่อเอา token
 
 export default function EditReservationPage() {
-
     const { id } = useParams()
     const router = useRouter()
+    const { data: session } = useSession() // ดึง session มาใช้
 
     const [reservation, setReservation] = useState<any>(null)
     const [shops, setShops] = useState<any[]>([])
@@ -14,70 +15,73 @@ export default function EditReservationPage() {
     const [duration, setDuration] = useState("")
     const [shop, setShop] = useState("")
 
-    // 🔹 โหลด reservation + ร้าน
     useEffect(() => {
+        if (!session || !id) return;
 
-        // โหลด reservation
-        fetch("/api/reservations")
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("Failed to fetch reservations")
-            }
-            return res.json()
-        })
-.then(data => {
-    const found = data.find((r: any) => r._id === id)
-
-    if (!found) {
-        console.log("Reservation not found")
-        return
-    }
-
-    setReservation(found)
-    setDate(found.date)
-    setDuration(found.duration)
-    setShop(found.massageShop._id)
-})
-
-        // โหลดร้านทั้งหมด
-        fetch("/api/massageshops")
+        // 1. โหลดร้านทั้งหมด (ใช้ URL ตรงไปที่ Backend)
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/massage-shops`)
             .then(res => res.json())
-            .then(data => setShops(data))
+            .then(data => setShops(data.data || data))
 
-    }, [id])
+        // 2. โหลด reservation (ต้องส่ง Token และใช้ URL ของ Backend)
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/reservations`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${(session?.user as any).token}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            const allReservations = data.data || data; // Backend มักส่งมาใน data.data
+            const found = allReservations.find((r: any) => r._id === id);
+
+            if (!found) {
+                console.log("Reservation not found");
+                return;
+            }
+
+            setReservation(found);
+            setDate(found.date);
+            setDuration(found.duration);
+            setShop(found.massageShop._id || found.massageShop);
+        })
+        .catch(err => console.error("Fetch error:", err));
+
+    }, [id, session])
 
     if (!reservation) {
-  return (
-    <div className="min-h-screen flex items-center justify-center text-white">
-      Loading reservation...
-    </div>
-  )
-}
+        return (
+            <div className="min-h-screen flex items-center justify-center text-slate-800 bg-slate-200">
+                <p className="text-xl font-semibold">Loading reservation data...</p>
+            </div>
+        )
+    }
 
-    // 🔹 update
     const handleUpdate = async () => {
+        const d = new Date(date);
+        const isoDate = d.toISOString().split('.')[0] + "Z";
 
-        const res = await fetch("/api/reservations", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/reservations/${id}`, {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${(session?.user as any).token}`
             },
             body: JSON.stringify({
-                id: reservation._id,
-                date: new Date(date),
-                duration: Number(duration),
-                massageShop: shop
+                date: isoDate,
+                duration: Number(duration)
             })
         })
 
         if (res.ok) {
-            alert("Updated")
+            alert("Updated Successful")
             router.push("/showreservation")
+            router.refresh();
         } else {
-            alert("Update failed")
+            const err = await res.json();
+            alert("Update failed: " + err.message)
         }
     }
-
 return (
 
     <div className="min-h-screen bg-gradient-to-br from-slate-300 via-slate-400 to-slate-500 flex justify-center items-center p-10">
